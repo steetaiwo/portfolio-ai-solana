@@ -1,68 +1,36 @@
-Portfolio AI
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-Build your portfolio. Own it on Solana.
+## Getting Started
 
-Portfolio AI is a mobile-first investing experience designed for tokenized stocks and ETFs on Solana.
+First, run the development server:
 
-Instead of forcing users to research dozens of assets and manually construct a portfolio, Portfolio AI helps users build a diversified portfolio based on their investment amount and preferred strategy.
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-The Problem
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-Investing can be overwhelming.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-Users have to decide:
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-* What assets to buy
-* How much to allocate to each asset
-* How diversified their portfolio should be
-* How much risk they are taking
+## Learn More
 
-Portfolio AI simplifies that decision-making process.
+To learn more about Next.js, take a look at the following resources:
 
-The MVP
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-A user can:
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-1. Connect a Solana wallet
-2. Choose an investment amount
-3. Select a strategy:
-    * Growth
-    * Balanced
-    * Conservative
-4. Generate a diversified portfolio
-5. Review allocations and portfolio risk
-6. Understand why each asset was selected
-7. Build and track the portfolio on Solana
+## Deploy on Vercel
 
-Why Solana?
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Solana provides the onchain infrastructure for tokenized financial assets, fast transactions, and wallet-based ownership.
-
-Portfolio AI is designed around that infrastructure rather than simply putting a traditional investing interface on a blockchain.
-
-Vision
-
-Portfolio AI starts with one simple experience:
-
-Tell us how much you want to invest. We’ll help you build the portfolio.
-
-The long-term vision includes:
-
-* Automated portfolio rebalancing
-* Recurring investments
-* Portfolio performance tracking
-* Public portfolio sharing
-* Social investing
-* Risk analysis
-* Onchain portfolio management
-* Additional financial products built around tokenized assets
-
-Hackathon
-
-Built for the Stocklana hackathon.
-
-The goal is to demonstrate a useful, working consumer experience for tokenized stocks on Solana.
-
-Status
-
-🚧 Early development
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
