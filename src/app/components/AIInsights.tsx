@@ -1,50 +1,28 @@
 "use client";
 
-import { getDemoPortfolio } from "./demoData";
+import { generateInsights } from "./insights";
+import { TrendingUp, ArrowUp, ArrowDown, Eye } from "lucide-react";
 
 function currency(n: number) {
   return `$${n.toLocaleString()}`;
 }
 
 export default function AIInsights() {
-  const { assets, total } = getDemoPortfolio();
+  const insights = generateInsights();
 
-  // Observation 1: Largest position
-  const largest = assets.reduce((a, b) => (a.value > b.value ? a : b));
-
-  // Observation 2: Concentration - percent of largest position
-  const concentration = Math.round((largest.value / total) * 100);
-
-  // Observation 3: Biggest gainer & loser
-  const gainers = [...assets].sort((a, b) => b.change24h - a.change24h);
-  const biggestGainer = gainers[0];
-  const biggestLoser = gainers[gainers.length - 1];
-
-  // Observation 4: Suggested watch (small positions with >5% move)
-  const noteworthy = assets.filter((a) => Math.abs(a.change24h) >= 5);
-
-  const observations = [
-    {
-      title: "Largest position",
-      body: `${largest.name} (${largest.symbol}) — ${currency(largest.value)} (${concentration}% of portfolio). Consider whether this concentration aligns with your risk tolerance.`,
-    },
-    {
-      title: "Top mover (24h)",
-      body: `${biggestGainer.name} up ${biggestGainer.change24h}% — currently ${currency(biggestGainer.value)}. Might be worth taking profits or reviewing recent news.`,
-    },
-    {
-      title: "Biggest decline (24h)",
-      body: `${biggestLoser.name} down ${biggestLoser.change24h}% — currently ${currency(biggestLoser.value)}. If this is a strategic holding, consider whether this presents a buying opportunity.`,
-    },
-  ];
-
-  if (noteworthy.length > 1) {
-    observations.push({
-      title: "Noteworthy movements",
-      body: `Several small holdings moved significantly: ${noteworthy
-        .map((n) => `${n.symbol} (${n.change24h >= 0 ? "+" : ""}${n.change24h}%)`)
-        .join(", ")}. Keep these on a short watchlist.`,
-    });
+  function iconForType(type: string) {
+    switch (type) {
+      case "largest":
+              return <TrendingUp size={18} className="text-purple-300" />;
+      case "mover":
+        return <ArrowUp size={18} className="text-emerald-300" />;
+      case "decline":
+        return <ArrowDown size={18} className="text-rose-300" />;
+      case "watch":
+        return <Eye size={18} className="text-yellow-300" />;
+      default:
+              return <TrendingUp size={18} className="text-purple-300" />;
+    }
   }
 
   return (
@@ -58,10 +36,27 @@ export default function AIInsights() {
       </div>
 
       <div className="mt-6 grid gap-3">
-        {observations.map((o) => (
-          <div key={o.title} className="rounded-2xl border border-white/6 bg-purple-700/3 p-4">
-            <p className="text-sm font-semibold text-white">{o.title}</p>
-            <p className="mt-2 text-sm text-white/60">{o.body}</p>
+        {insights.map((insight) => (
+          <div
+            key={insight.id}
+            className="flex items-start justify-between gap-4 rounded-2xl border border-white/6 bg-gradient-to-br from-purple-800/5 to-white/[0.01] p-4"
+          >
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/4">
+                {iconForType(insight.type)}
+              </div>
+
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-white">{insight.title}</p>
+                <p className="mt-1 text-sm text-white/60">{insight.body}</p>
+              </div>
+            </div>
+
+            {insight.value !== undefined && (
+              <div className="text-right">
+                <div className="text-sm font-semibold text-white">{typeof insight.value === 'number' ? currency(Number(insight.value)) : insight.value}</div>
+              </div>
+            )}
           </div>
         ))}
       </div>

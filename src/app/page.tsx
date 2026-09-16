@@ -1,6 +1,4 @@
 import WalletButton from "./components/WalletButton";
-
-import WalletButton from "./components/WalletButton";
 import PortfolioOverview from "./components/PortfolioOverview";
 import AIInsights from "./components/AIInsights";
 
