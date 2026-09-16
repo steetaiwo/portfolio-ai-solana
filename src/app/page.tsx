@@ -1,5 +1,9 @@
 import WalletButton from "./components/WalletButton";
 
+import WalletButton from "./components/WalletButton";
+import PortfolioOverview from "./components/PortfolioOverview";
+import AIInsights from "./components/AIInsights";
+
 export default function Home() {
 	return (
 		<main className="min-h-screen bg-[#08070c] text-white">
@@ -61,26 +65,16 @@ export default function Home() {
 					<div className="p-6 md:p-10">
 						<div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
 							{/* Portfolio value */}
-							<div className="rounded-3xl border border-white/10 bg-gradient-to-br from-white/[0.07] to-white/[0.02] p-8">
-								<p className="text-sm text-white/40">Total portfolio value</p>
-								<div className="mt-3 text-5xl font-semibold tracking-tight">$0.00</div>
-								<p className="mt-3 text-sm text-white/30">Connect your wallet to begin</p>
-								<div className="mt-10 h-32 rounded-2xl border border-dashed border-white/10" />
+							<div className="lg:col-span-1">
+								{/* PortfolioOverview component (demo data) */}
+								{/* Replaced static placeholder with PortfolioOverview */}
+								<PortfolioOverview />
 							</div>
 
 							{/* AI panel */}
-							<div className="relative overflow-hidden rounded-3xl border border-purple-400/20 bg-gradient-to-br from-purple-500/10 via-transparent to-white/[0.02] p-8">
-								<div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-purple-500/20 blur-3xl" />
-								<div className="relative">
-									<p className="text-sm text-purple-300">Portfolio AI</p>
-									<h2 className="mt-3 text-2xl font-semibold">Your portfolio is waiting.</h2>
-									<p className="mt-3 max-w-sm text-sm leading-6 text-white/40">
-										Connect your wallet and Portfolio AI will turn your holdings into clear, actionable intelligence.
-									</p>
-									<button className="mt-8 rounded-full border border-purple-300/30 bg-purple-400/10 px-5 py-3 text-sm text-purple-200">
-										Ask Portfolio AI
-									</button>
-								</div>
+							<div className="relative overflow-hidden rounded-3xl border border-purple-400/20 bg-gradient-to-br from-purple-500/10 via-transparent to-white/[0.02] p-6">
+								{/* AIInsights component (demo observations) */}
+								<AIInsights />
 							</div>
 						</div>
 
