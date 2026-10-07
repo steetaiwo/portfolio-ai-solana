@@ -6,19 +6,34 @@ interface WalletButtonProps {
   compact?: boolean;
 }
 
+interface SolanaProvider {
+  publicKey?: { toString(): string } | null;
+  isConnected?: boolean;
+  connect(): Promise<{ publicKey?: { toString(): string } | null }>;
+  disconnect(): Promise<void>;
+  on?: (event: "connect" | "disconnect", listener: () => void) => void;
+  removeListener?: (event: "connect" | "disconnect", listener: () => void) => void;
+}
+
+declare global {
+  interface Window {
+    solana?: SolanaProvider;
+  }
+}
+
 export default function WalletButton({ compact = false }: WalletButtonProps) {
   const [publicKey, setPublicKey] = useState<string | null>(null);
   const [available, setAvailable] = useState<boolean | null>(null);
   const [connecting, setConnecting] = useState(false);
 
   useEffect(() => {
-    const provider = (window as any).solana;
+    const provider = window.solana;
     if (!provider) {
-      setAvailable(false);
+      queueMicrotask(() => setAvailable(false));
       return;
     }
 
-    setAvailable(true);
+    queueMicrotask(() => setAvailable(true));
 
     const handleConnect = () => {
       try {
@@ -31,22 +46,22 @@ export default function WalletButton({ compact = false }: WalletButtonProps) {
 
     const handleDisconnect = () => setPublicKey(null);
 
-    provider.on && provider.on("connect", handleConnect);
-    provider.on && provider.on("disconnect", handleDisconnect);
+    provider.on?.("connect", handleConnect);
+    provider.on?.("disconnect", handleDisconnect);
 
     if (provider.isConnected) {
-      handleConnect();
+      queueMicrotask(handleConnect);
     }
 
     return () => {
-      provider?.removeListener && provider.removeListener("connect", handleConnect);
-      provider?.removeListener && provider.removeListener("disconnect", handleDisconnect);
+      provider.removeListener?.("connect", handleConnect);
+      provider.removeListener?.("disconnect", handleDisconnect);
     };
   }, []);
 
   const connect = async () => {
-    const provider = (window as any).solana;
-    if (!provider) return window.open("https://phantom.app/," , "_blank");
+    const provider = window.solana;
+    if (!provider) return window.open("https://phantom.app/", "_blank");
 
     try {
       setConnecting(true);
@@ -62,7 +77,7 @@ export default function WalletButton({ compact = false }: WalletButtonProps) {
   };
 
   const disconnect = async () => {
-    const provider = (window as any).solana;
+    const provider = window.solana;
     try {
       await provider?.disconnect();
     } catch (err) {
@@ -80,7 +95,7 @@ export default function WalletButton({ compact = false }: WalletButtonProps) {
         href="https://phantom.app/"
         target="_blank"
         rel="noreferrer"
-        className="rounded-full border border-white/10 bg-purple-400/10 px-4 py-2 text-xs text-purple-200 hover:bg-purple-400/20"
+        className="rounded-full border border-purple-300/20 bg-purple-400/10 px-4 py-2 text-xs font-medium text-purple-100 transition hover:border-purple-300/40 hover:bg-purple-400/20"
       >
         Install Phantom
       </a>
@@ -95,12 +110,12 @@ export default function WalletButton({ compact = false }: WalletButtonProps) {
       </div>
     ) : (
       <div className="flex items-center gap-3">
-        <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/50">Solana</div>
+        <div className="hidden rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-white/50 sm:block">Solana</div>
         <div className="flex items-center gap-2">
-          <div className="rounded-full bg-purple-400/10 px-3 py-2 text-sm text-purple-200">{shortKey}</div>
+          <div className="rounded-full border border-purple-300/15 bg-purple-400/10 px-3 py-2 text-sm text-purple-100">{shortKey}</div>
           <button
             onClick={disconnect}
-            className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/50"
+            className="rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs text-white/55 transition hover:border-white/20 hover:text-white"
           >
             Disconnect
           </button>
@@ -115,7 +130,7 @@ export default function WalletButton({ compact = false }: WalletButtonProps) {
   ) : (
     <button
       onClick={connect}
-      className="rounded-full bg-white px-4 py-2 text-xs font-medium text-black"
+      className="rounded-full bg-white px-4 py-2 text-xs font-semibold text-black shadow-lg shadow-white/10 transition hover:bg-purple-100 hover:shadow-purple-300/10 disabled:cursor-wait disabled:opacity-60"
       disabled={connecting}
     >
       {connecting ? "Connecting..." : "Connect Wallet"}
