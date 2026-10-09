@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Portfolio AI · the winning build (preview)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500&family=Instrument+Serif&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#08090b;--sf:#101216;--tx:#f5f5f5;--mu:#8b9099;--bd:rgba(255,255,255,.08);--vi:#8b5cf6;--am:#e0a84a;--gr:#5fd39a;box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html,body{margin:0;background:var(--bg);color:var(--tx);font-family:Geist,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+html{scroll-padding-top:calc(60px + env(safe-area-inset-top,0px))}
+.app{max-width:430px;margin:0 auto;position:relative}
+.hd{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;height:calc(56px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 22px 0;background:var(--bg);border-bottom:1px solid var(--bd);font-size:14px}
+.hd b{font-weight:500}
+.tv{display:flex;align-items:baseline;gap:8px;font-variant-numeric:tabular-nums}
+.tv small{font-size:11px;color:var(--mu)}
+.tv em{font-style:normal;font-size:12px;color:var(--am)}
+.hd.sc .tv span{color:var(--am)}
+.hero{min-height:calc(100svh - 56px);padding:34px 22px 0;display:flex;flex-direction:column;justify-content:space-between;text-align:center}
+.clocks{display:grid;grid-template-columns:1fr 1px 1fr;gap:18px;text-align:left}
+.clocks .v{background:var(--bd)}
+.clocks small{display:block;font-size:11px;color:var(--mu);margin-bottom:10px}
+.clocks b{display:flex;align-items:center;gap:8px;font:400 30px/1 "Instrument Serif",Georgia,serif;margin-bottom:8px}
+.clocks .r{text-align:right}.clocks .r b{justify-content:flex-end}
+.cl b{color:var(--am)}.ch b{color:var(--gr)}
+.ch b i{width:7px;height:7px;border-radius:50%;background:var(--gr);animation:pl 2.4s ease-in-out infinite}
+.clocks span{font-size:12px;color:var(--mu)}
+.val small{display:block;font-size:12px;color:var(--mu);margin-bottom:12px}
+.val p{font:400 62px/1 "Instrument Serif",Georgia,serif;letter-spacing:-.01em;margin:0}
+.ask{padding-bottom:30px}
+.ask p{font:400 29px/1.15 "Instrument Serif",Georgia,serif;margin:0 0 18px}
+.pulse{position:relative;width:1px;height:64px;margin:0 auto;background:var(--bd);overflow:hidden}
+.pulse i{position:absolute;left:-2px;top:0;width:5px;height:5px;border-radius:50%;background:var(--vi);animation:fall 2.2s cubic-bezier(.5,0,.5,1) infinite}
+.st{text-align:center;padding:0 22px 84px}
+.ln{width:1px;height:90px;margin:0 auto;background:var(--bd);position:relative;overflow:hidden}
+.ln i{position:absolute;inset:0;background:var(--vi);transform:scaleY(0);transform-origin:top;transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.st.on .ln i{transform:scaleY(1)}
+.ln.ds{background:repeating-linear-gradient(to bottom,rgba(224,168,74,.35) 0 5px,transparent 5px 10px)}
+.ln.ds i{background:repeating-linear-gradient(to bottom,var(--am) 0 5px,transparent 5px 10px)}
+.ln.am i{background:var(--am)}
+.nd{display:block;width:11px;height:11px;border-radius:50%;border:1px solid #4a505c;background:var(--bg);margin:-1px auto 26px;transition:.5s}
+.st.on .nd{border-color:var(--vi);background:var(--vi)}
+.st.sc.on .nd{border-color:var(--am);background:var(--am)}
+.nd.dash{border-style:dashed}.st.on .nd.dash{background:var(--bg)}
+.bd{opacity:.22;transition:opacity .9s}.st.on .bd{opacity:1}
+.ev{display:inline-flex;align-items:center;font-size:12px;color:var(--mu);margin:0 0 16px}
+.mk{width:12px;height:12px;border:1.5px solid #cfd2d8;margin-right:8px;display:inline-block}
+.o{border-radius:50%;background:#cfd2d8}.d{border-radius:50%;background:linear-gradient(90deg,#cfd2d8 50%,transparent 50%)}.c{background:#cfd2d8}.i{border-radius:50%;border-style:dashed}
+.big{font:400 112px/.95 "Instrument Serif",Georgia,serif;letter-spacing:-.02em;margin:0 0 14px}
+.big.m{font-size:60px;letter-spacing:-.01em}
+.am{color:var(--am)}
+.cap{font-size:14px;line-height:1.5;color:var(--mu);margin:0 auto 26px;max-width:280px}
+.cap b{color:var(--tx);font-weight:500}
+.seg{display:flex;height:10px;gap:2px;margin:0 0 8px}
+.seg i{display:block;background:#23262d}
+.seg .l{background:var(--tx)}
+.seg .h{background:repeating-linear-gradient(135deg,#23262d 0 3px,#14161a 3px 5px)}
+.lab{display:flex;justify-content:space-between;font-size:11px;color:var(--mu)}
+.wk{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin:0 0 5px}
+.dy{position:relative;height:12px;background:var(--sf)}
+.dy.o2 i{position:absolute;left:39.58%;width:27.08%;top:0;bottom:0;background:var(--am)}
+.dy.g{background:var(--gr)}
+.dn{display:grid;grid-template-columns:repeat(7,1fr);font-size:11px;color:var(--mu);margin:7px 0 0}
+.scn{margin:0 auto;max-width:300px;padding:14px 16px;border:1px dashed rgba(224,168,74,.5);font-size:13px;color:var(--tx)}
+.scn small{display:block;color:var(--am);font-size:11px;font-weight:500;margin-bottom:6px;letter-spacing:.03em}
+.q2{font:400 29px/1.2 "Instrument Serif",Georgia,serif;margin:0 0 14px}
+.key{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 18px;padding:0 22px calc(100px + env(safe-area-inset-bottom,0px));font-size:11px;color:var(--mu)}
+.key span{display:flex;align-items:center}
+.key .mk{width:10px;height:10px;margin-right:6px}
+.ev{cursor:pointer;background:none;border:0;padding:0;font-family:inherit}
+.ev u{margin-left:8px;text-decoration:none;color:var(--vi);font-size:11px}
+.rc{max-height:0;overflow:hidden;opacity:0;font-size:12px;color:var(--mu);margin:0 auto;max-width:280px;transition:max-height .4s,opacity .4s,margin .4s}
+.rc.open{max-height:80px;opacity:1;margin:0 auto 18px}
+.rc b{color:var(--tx);font-weight:500}
+.sl{max-width:300px;margin:0 auto 16px}
+.sl input{width:100%;accent-color:var(--am)}
+.sl small{display:block;font-size:12px;color:var(--mu);margin-bottom:6px}
+.sl b{color:var(--am);font-weight:500}
+.askbar{position:fixed;left:0;right:0;bottom:0;z-index:6;max-width:430px;margin:0 auto;padding:10px 16px calc(12px + env(safe-area-inset-bottom,0px));background:linear-gradient(to top,var(--bg) 70%,transparent)}
+.askbtn{width:100%;display:flex;align-items:center;gap:10px;height:46px;padding:0 16px;border-radius:23px;border:1px solid rgba(139,92,246,.45);background:var(--sf);color:var(--tx);font:400 14px Geist,system-ui,sans-serif;cursor:pointer}
+.askbtn i{width:8px;height:8px;border-radius:50%;background:var(--vi);animation:pl 2.4s ease-in-out infinite}
+.sheet{display:none;margin:0 0 10px;padding:16px;border:1px solid var(--bd);background:var(--sf);font-size:14px;line-height:1.5;text-align:left}
+.sheet.open{display:block}
+.sheet em{display:block;font:400 22px/1.2 "Instrument Serif",Georgia,serif;font-style:normal;margin-bottom:8px}
+.sheet small{display:block;color:var(--mu);font-size:11px;margin-top:10px}
+.sheet .am{color:var(--am)}
+.rl{height:1px;margin-top:14px;position:relative;overflow:hidden}
+.rl.a{background:repeating-linear-gradient(to right,rgba(224,168,74,.55) 0 5px,transparent 5px 10px)}
+.rl.g{background:var(--bd)}
+.rl.g::after{content:"";position:absolute;top:0;left:-35%;width:35%;height:1px;background:linear-gradient(to right,transparent,var(--gr));animation:run 2.2s linear infinite}
+@keyframes run{to{left:100%}}
+.th{display:none;gap:5px;padding:8px 0 4px}
+.sheet.thinking .th{display:flex}.sheet.thinking .an{display:none}
+.th span{width:6px;height:6px;border-radius:50%;background:var(--vi);animation:pl 1s ease-in-out infinite}
+.th span:nth-child(2){animation-delay:.15s}.th span:nth-child(3){animation-delay:.3s}
+.an{animation:fadeup .5s ease both}
+.askbtn{animation:glow 3.2s ease-in-out infinite}
+@keyframes glow{50%{border-color:rgba(139,92,246,.9);box-shadow:0 0 18px rgba(139,92,246,.25)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(4px)}}
+.gate{position:fixed;inset:0;z-index:20;background:var(--bg);display:flex;flex-direction:column;justify-content:center;padding:calc(30px + env(safe-area-inset-top,0px)) 26px calc(30px + env(safe-area-inset-bottom,0px));max-width:430px;margin:0 auto;transition:opacity .6s}
+.gate.out{opacity:0;pointer-events:none}
+.gate b{font-weight:500;font-size:14px;margin-bottom:auto}
+.gate h1{font:400 40px/1.08 "Instrument Serif",Georgia,serif;margin:0 0 14px}
+.gate h1 span{color:var(--gr)}
+.gate p{font-size:14px;line-height:1.5;color:var(--mu);margin:0 0 26px}
+.gate input{width:100%;height:50px;padding:0 16px;background:var(--sf);border:1px solid var(--bd);color:var(--tx);font:400 14px Geist,system-ui,sans-serif;margin-bottom:10px}
+.gate button{width:100%;height:50px;border:0;background:var(--tx);color:var(--bg);font:500 15px Geist,system-ui,sans-serif;cursor:pointer}
+.gate a{display:block;text-align:center;margin-top:16px;font-size:13px;color:var(--vi);cursor:pointer;margin-bottom:auto}
+.gate small{display:block;min-height:18px;font-size:12px;color:var(--am);margin-bottom:10px}
+.xc{max-width:300px;margin:0 auto;padding:18px;border:1px solid var(--bd);background:var(--sf);text-align:left}
+.xc small{display:block;font-size:11px;color:var(--mu);margin-bottom:10px}
+.xc p{font:400 24px/1.2 "Instrument Serif",Georgia,serif;margin:0 0 6px}
+.xc button{margin-top:12px;width:100%;height:42px;border:1px solid rgba(139,92,246,.5);background:none;color:var(--tx);font:400 14px Geist,system-ui,sans-serif;cursor:pointer}
+@keyframes fall{0%{top:-5px;opacity:0}20%{opacity:1}100%{top:64px;opacity:0}}
+@keyframes pl{50%{opacity:.35}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.bd{opacity:1}.ln i{transform:scaleY(1)}}
+</style>
+</head>
+<body>
+<div class="gate" id="gt"><b>Portfolio AI</b>
+<h1>Traditional markets can close. <span>Your on-chain portfolio doesn't.</span></h1>
+<p>See what your tokenized stocks really hold, and what happens when their market is shut.</p>
+<small id="gs"></small><input id="gi" placeholder="Paste a Solana wallet address" autocomplete="off" spellcheck="false">
+<button id="gb">Analyze my wallet</button><a id="gd">or try the demo portfolio</a></div>
+<main class="app">
+  <header class="hd" id="hd"><b>Portfolio AI</b>
+    <div class="tv"><small id="tl">Total</small><span id="tn">$48,212.90</span><em id="td"></em></div></header>
+
+  <section class="hero">
+    <div class="clocks">
+      <div class="cl"><small>NYSE · Nasdaq</small><b>Closed</b><span>Next session 9:30 ET</span><div class="rl a"></div></div>
+      <div class="v"></div>
+      <div class="ch r"><small>Solana</small><b><i></i>Live</b><span>Continuous · 24/7</span><div class="rl g"></div></div>
+    </div>
+    <div class="val"><small>Your portfolio</small><p>$48,212.90</p></div>
+    <div class="ask"><p>Why is my portfolio vulnerable?</p><div class="pulse"><i></i></div></div>
+  </section>
+
+  <section class="st" data-k="1"><div class="ln"><i></i></div><span class="nd"></span>
+    <div class="bd"><button class="ev" data-r="r1"><span class="mk d"></span>Derived<u>how?</u></button><p class="rc" id="r1">$29,892 ÷ $48,212.90 = <b>62%</b></p>
+      <p class="big" data-n="62" data-d="0">62%</p><p class="cap"><b>AAPLx</b> is $29,892 of your $48,212.90.</p>
+      <div class="seg"><i class="l" style="flex:62"></i><i style="flex:23"></i><i style="flex:15"></i></div>
+      <div class="lab"><span>AAPLx</span><span>TSLAx</span><span>GRND</span></div></div></section>
+
+  <section class="st" data-k="2"><div class="ln"><i></i></div><span class="nd"></span>
+    <div class="bd"><button class="ev" data-r="r2"><span class="mk d"></span>Derived<u>how?</u></button><p class="rc" id="r2">($29,892 + $11,089) ÷ $48,212.90 = <b>85.0%</b></p>
+      <p class="big" data-n="85" data-d="1">85.0%</p><p class="cap">Underneath, it's all <b>U.S. equity</b>: AAPLx and TSLAx together. GRND has no mapped underlying.</p>
+      <div class="seg"><i class="l" style="flex:62"></i><i class="l" style="flex:23"></i><i class="h" style="flex:15"></i></div>
+      <div class="lab"><span>U.S. equity</span><span>No underlying</span></div></div></section>
+
+  <section class="st" data-k="3"><div class="ln ds"><i></i></div><span class="nd"></span>
+    <div class="bd"><p class="ev"><span class="mk o"></span>Observed</p>
+      <p class="big m am">Closed</p><p class="cap">The market that prices AAPLx is shut. On-chain is live. It's closed <b>81% of the week</b>.</p>
+      <div class="wk" role="img" aria-label="Week: U.S. market open weekdays 9:30 to 16:00 ET, on-chain always open">
+        <div class="dy o2"><i></i></div><div class="dy o2"><i></i></div><div class="dy o2"><i></i></div><div class="dy o2"><i></i></div><div class="dy o2"><i></i></div><div class="dy"></div><div class="dy"></div></div>
+      <div class="wk"><div class="dy g"></div><div class="dy g"></div><div class="dy g"></div><div class="dy g"></div><div class="dy g"></div><div class="dy g"></div><div class="dy g"></div></div>
+      <div class="dn" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div></div></section>
+
+  <section class="st sc" id="scn" data-k="4"><div class="ln am"><i></i></div><span class="nd"></span>
+    <div class="bd"><p class="ev"><span class="mk c"></span>Computed</p>
+      <p class="big m am" id="loss">−$2,989.20</p><p class="cap">Drag it. If <b>AAPLx falls <span id="pc">10</span>%</b>, this is what you lose.</p>
+      <div class="sl"><input type="range" id="rg" min="0" max="30" step="1" value="10" aria-label="AAPLx drop percent"></div>
+      <div class="scn"><small>SCENARIO · NOT REAL</small><span id="sn">$48,212.90 → $45,223.70<br>−6.20%</span></div></div></section>
+
+  <section class="st" data-k="5"><div class="ln"><i></i></div><span class="nd dash"></span>
+    <div class="bd"><p class="ev"><span class="mk i"></span>Inferred</p>
+      <p class="q2">One stock, held through a token, while its market is shut.</p>
+      <p class="cap">Based on your holdings, the schedule rules, and the scenario math.</p></div></section>
+
+  <section class="st" data-k="6"><div class="ln"><i></i></div><span class="nd"></span>
+    <div class="bd"><div class="xc"><small>YOUR EXPOSURE CARD</small><p>85.0% U.S. equity under the tokens.</p><small style="margin:0">Market closed 81% of the week · AAPLx −10% = −$2,989.20 (scenario)</small><button>Share card</button></div></div></section>
+  <div class="key" aria-label="Evidence key"><span><i class="mk o"></i>Observed</span><span><i class="mk d"></i>Derived</span><span><i class="mk c"></i>Computed</span><span><i class="mk i"></i>Inferred</span></div>
+</main>
+<div class="askbar"><div class="sheet" id="sh"><em>Why is my portfolio vulnerable?</em><div class="th"><span></span><span></span><span></span></div><div class="an">85.0% of it is U.S. equity through two tokens, and that market is closed 81% of the week. A 10% drop in AAPLx alone is <span class="am">−$2,989.20</span>.<small>Derived + Computed · scenario, not real</small></div></div>
+<button class="askbtn" id="ab"><i></i>Ask Portfolio AI</button></div>
+<script>
+(function(){
+  var gt=document.getElementById('gt'),gi=document.getElementById('gi'),gs=document.getElementById('gs');
+  document.documentElement.style.overflow='hidden';
+  function go(msg){gs.textContent=msg||'';setTimeout(function(){gt.classList.add('out');document.documentElement.style.overflow='';setTimeout(function(){gt.style.display='none'},650)},msg?1600:0)}
+  document.getElementById('gd').addEventListener('click',function(){go('')});
+  document.getElementById('gb').addEventListener('click',function(){go(gi.value.trim()?'Preview only: live wallet reading is built in the real version. Showing the demo portfolio.':'')});
+
+  var rm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var secs=document.querySelectorAll('.st'),hd=document.getElementById('hd');
+  var tn=document.getElementById('tn'),tl=document.getElementById('tl'),td=document.getElementById('td');
+  var fmt=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
+  var cur=48212.90,raf=0,P=10,inS=false;
+  var TOT=48212.90,AP=29892;
+  function calc(){var l=AP*P/100,n=TOT-l;return{l:l,n:n,pc:l/TOT*100}}
+  function m(v){return fmt.format(v)}
+  function to(v){
+    cancelAnimationFrame(raf);
+    if(rm){cur=v;tn.textContent=fmt.format(v);return}
+    var a=cur,s=null;
+    function f(t){if(!s)s=t;var p=Math.min((t-s)/700,1),e=1-Math.pow(1-p,3);cur=a+(v-a)*e;tn.textContent=fmt.format(p<1?cur:v);if(p<1)raf=requestAnimationFrame(f)}
+    raf=requestAnimationFrame(f);
+  }
+  function scen(on){
+    hd.classList.toggle('sc',on);
+    tl.textContent=on?'Scenario':'Total';
+    inS=on;var c=calc();
+    td.textContent=on?'−'+c.pc.toFixed(2)+'%':'';
+    to(on?c.n:TOT);
+  }
+  var rg=document.getElementById('rg');
+  if(rg)rg.addEventListener('input',function(){
+    P=+rg.value;var c=calc();
+    document.getElementById('pc').textContent=P;
+    document.getElementById('loss').textContent='−'+m(c.l);
+    document.getElementById('sn').innerHTML=m(TOT)+' → '+m(c.n)+'<br>−'+c.pc.toFixed(2)+'%';
+    if(inS){cancelAnimationFrame(raf);cur=c.n;tn.textContent=m(c.n);td.textContent='−'+c.pc.toFixed(2)+'%'}
+  });
+  document.querySelectorAll('.ev[data-r]').forEach(function(b){b.addEventListener('click',function(){document.getElementById(b.dataset.r).classList.toggle('open')})});
+  var ab=document.getElementById('ab'),sh=document.getElementById('sh');
+  ab.addEventListener('click',function(){var o=sh.classList.toggle('open');if(o&&!rm){sh.classList.add('thinking');setTimeout(function(){sh.classList.remove('thinking')},900)}});
+  if(!('IntersectionObserver' in window)){secs.forEach(function(s){s.classList.add('on')});return}
+  function cnt(st){var el=st.querySelector('[data-n]');if(!el||rm)return;var n=+el.dataset.n,d=+el.dataset.d,s0=null;
+    function f(t){if(!s0)s0=t;var p=Math.min((t-s0)/900,1),e=1-Math.pow(1-p,3);el.textContent=(n*e).toFixed(d)+'%';if(p<1)requestAnimationFrame(f)}
+    requestAnimationFrame(f)}
+  if(!rm)document.querySelectorAll('[data-n]').forEach(function(el){el.textContent=(0).toFixed(+el.dataset.d)+'%'});
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){if(!e.target.classList.contains('on'))cnt(e.target);e.target.classList.add('on')}
+      if(e.target.id==='scn')scen(e.isIntersecting);
+    });
+  },{rootMargin:'-18% 0px -22% 0px',threshold:0.3});
+  secs.forEach(function(s){io.observe(s)});
+})();
+</script>
+</body>
+</html>
